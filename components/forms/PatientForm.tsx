@@ -37,19 +37,32 @@ const [isLoading, setIsLoading] = useState(false)
       phone: "",
     },
   })
+
+  const onSubmit = async (values: z.infer<typeof userFormValidation>) => {
+    setIsLoading(true);
  
   // 2. Define a submit handler.
-  async function onSubmit({name, email , phone}: z.infer<typeof userFormValidation>) {
-   setIsLoading(true)
+  // async function onSubmit({name, email , phone}: z.infer<typeof userFormValidation>) {
+  //  setIsLoading(true)
 
    try {
-    const userData = {name, email , phone}
 
-    const user = await createUser(userData)
-    if(user) router.push(`/patients/${user.id}/register`)
+    const user = {
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+    };
+
+    const newUser = await createUser(user);
+
+    // const userData = {name, email , phone}
+
+    // const user = await createUser(userData)
+    if(newUser) router.push(`/patients/${newUser.id}/register`)
    } catch (error) {
     console.log(error)
    }
+   setIsLoading(false)
   }
   return (
 
