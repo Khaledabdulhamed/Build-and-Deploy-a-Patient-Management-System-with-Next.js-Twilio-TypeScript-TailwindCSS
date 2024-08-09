@@ -1,16 +1,29 @@
 "use client"
- 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import {  Form} from "@/components/ui/form"
-import CustomFormField from "../CustomFormField"
-import { useState } from "react"
-import SubmitButton from "../ui/SubmitButton"
-import { userFormValidation } from "@/lib/validation"
-import { useRouter } from "next/navigation"
-import { createUser } from "@/lib/actions/patient.actions"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Form } from "@/components/ui/form";
+import { createUser } from "@/lib/actions/patient.actions";
+import { UserFormValidation } from "@/lib/validation";
+
+import "react-phone-number-input/style.css";
+import CustomFormField from "../CustomFormField";
+import SubmitButton from "../ui/SubmitButton";
+
+// import { zodResolver } from "@hookform/resolvers/zod"
+// import { useForm } from "react-hook-form"
+// import { z } from "zod"
+// import { Button } from "@/components/ui/button"
+// import {  Form} from "@/components/ui/form"
+// import CustomFormField from "../CustomFormField"
+// import { useState } from "react"
+// import SubmitButton from "../ui/SubmitButton"
+// import { UserFormValidation } from "@/lib/validation"
+// import { useRouter } from "next/navigation"
+// import { createUser } from "@/lib/actions/patient.actions"
 
 export enum FormFieldType {
     INPUT = 'input',
@@ -29,8 +42,8 @@ const PatientForm=() => {
 const [isLoading, setIsLoading] = useState(false)
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof userFormValidation>>({
-    resolver: zodResolver(userFormValidation),
+  const form = useForm<z.infer<typeof UserFormValidation>>({
+    resolver: zodResolver(UserFormValidation),
     defaultValues: {
       name: "",
       email: "",
@@ -38,7 +51,7 @@ const [isLoading, setIsLoading] = useState(false)
     },
   })
 
-  const onSubmit = async (values: z.infer<typeof userFormValidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
     setIsLoading(true);
  
   // 2. Define a submit handler.
@@ -58,7 +71,7 @@ const [isLoading, setIsLoading] = useState(false)
     // const userData = {name, email , phone}
 
     // const user = await createUser(userData)
-    if(newUser) router.push(`/patients/${newUser.id}/register`)
+    if(newUser) router.push(`/patients/${newUser.$id}/register`)
    } catch (error) {
     console.log(error)
    }
