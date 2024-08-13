@@ -5,13 +5,12 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {  Form, FormControl} from "@/components/ui/form"
-import CustomFormField from "../CustomFormField"
+import CustomFormField, { FormFieldType } from "../CustomFormField"
 import { useState } from "react"
 import SubmitButton from "../ui/SubmitButton"
 import { PatientFormValidation, UserFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 import { createUser, registerPatient } from "@/lib/actions/patient.actions"
-import { FormFieldType } from "./PatientForm"
 import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group"
 import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants"
 import { SelectItem } from "@radix-ui/react-select"
@@ -25,7 +24,7 @@ const RegisterForm=({user}: {user: User}) => {
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof PatientFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+    resolver: zodResolver(PatientFormValidation),
     defaultValues: {
       ...PatientFormDefaultValues,
       name: "",
@@ -150,7 +149,7 @@ const RegisterForm=({user}: {user: User}) => {
           
          />
            <CustomFormField
-        fieldType = {FormFieldType.PHONE_INPUT}
+        fieldType = {FormFieldType.INPUT}
          control={form.control}
          name="occupation"
          label= "occupation"
@@ -184,28 +183,29 @@ const RegisterForm=({user}: {user: User}) => {
           </div>
         </section>
 
+        {/* PRIMARY CARE PHYSICIAN */}
         <CustomFormField
-        fieldType = {FormFieldType.SELECT}
-         control={form.control}
-         name="primaryPhysician"
-         label= "primary Physician"
-         placeholder = "select a Physician"
-       
-         >
-          {Doctors.map((doctor) => (
-            <SelectItem key={doctor.name} value={doctor.name}>
-              <div className="flex cursor-pointer items-center gap-2">
-              <Image
-              src={doctor.image}
-              width={32}
-              height={32}
-              alt={doctor.name}
-              className="rounded-full border border-dark-500"/>
-              <p>{doctor.name}</p>
-              </div>
-            </SelectItem>
-          ))}
-         </CustomFormField>
+            fieldType={FormFieldType.SELECT}
+            control={form.control}
+            name="primaryPhysician"
+            label="Primary care physician"
+            placeholder="Select a physician"
+          >
+            {Doctors.map((doctor, i) => (
+              <SelectItem key={doctor.name + i} value={doctor.name}>
+                <div className="flex cursor-pointer items-center gap-2">
+                  <Image
+                    src={doctor.image}
+                    width={32}
+                    height={32}
+                    alt="doctor"
+                    className="rounded-full border border-dark-500"
+                  />
+                  <p>{doctor.name}</p>
+                </div>
+              </SelectItem>
+            ))}
+          </CustomFormField>
 
          <div className="flex flex-col gap-6 xl:flex-row">
         <CustomFormField
@@ -217,7 +217,7 @@ const RegisterForm=({user}: {user: User}) => {
           
          />
            <CustomFormField
-        fieldType = {FormFieldType.PHONE_INPUT}
+        fieldType = {FormFieldType.INPUT}
          control={form.control}
          name="insurancePolicyNumber"
          label= "insurance Policy Number"
@@ -307,32 +307,7 @@ const RegisterForm=({user}: {user: User}) => {
        
          />
 
-        <section className="space-y-6">
-          <div className="mb-9 space-y-1"> 
-            <h2 className="sub-header">Consent and Privacy</h2>
-          </div>
-         </section>
-
-         <CustomFormField
-         fieldType={FormFieldType.CHECKBOX}
-         control={form.control}
-         name="treatmentConsent"
-         label="I consent to treatment"
-         />
-         <CustomFormField
-         fieldType={FormFieldType.CHECKBOX}
-         control={form.control}
-         name="privacyConsent"
-         label="I consent to Privacy Policy"
-         />
-         <CustomFormField
-         fieldType={FormFieldType.CHECKBOX}
-         control={form.control}
-         name="treatmentConsent"
-         label="I consent to treatment"
-         />
-
-          <section className="space-y-6">
+             <section className="space-y-6">
           <div className="mb-9 space-y-1"> 
             <h2 className="sub-header">Consent and Privacy</h2>
           </div>

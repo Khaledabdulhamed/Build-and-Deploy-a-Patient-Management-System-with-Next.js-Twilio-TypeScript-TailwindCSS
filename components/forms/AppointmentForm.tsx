@@ -7,7 +7,7 @@ import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
 import { createUser } from "@/lib/actions/patient.actions";
-import { AppointmentFormValidation, getAppointmentSchema } from "@/lib/validation";
+import {  getAppointmentSchema } from "@/lib/validation";
 
 import "react-phone-number-input/style.css";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
@@ -72,7 +72,7 @@ const [isLoading, setIsLoading] = useState(false)
 
             if(appointment) {
                 form.reset();
-                router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.id}`)
+                router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
             }
         }
    

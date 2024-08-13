@@ -14,8 +14,8 @@
 //     FormLabel,
 //     FormMessage,
 //   } from "@/components/ui/form"
+
 //   import { Input } from "@/components/ui/input"
-// import { FormFieldType } from './forms/PatientForm'
 // import { Control } from 'react-hook-form'
 // import Image from 'next/image'
 // import {E164Number} from 'libphonenumber-js/core'
@@ -36,6 +36,16 @@
 //     children?: React.ReactNode,
 //     renderSkeleton?: (field: any) => React.ReactNode,
 
+//   }
+
+//   export enum FormFieldType {
+//     INPUT = "input",
+//     TEXTAREA = "textarea",
+//     PHONE_INPUT = "phoneInput",
+//     CHECKBOX = "checkbox",
+//     DATE_PICKER = "datePicker",
+//     SELECT = "select",
+//     SKELETON = "skeleton",
 //   }
 
 //   const RenderField = ({field, props}: {field: any; props:CustomProps}) => {
@@ -190,7 +200,6 @@
 
 // export default CustomFormField
 
-
 /* eslint-disable no-unused-vars */
 import { E164Number } from "libphonenumber-js/core";
 import Image from "next/image";
@@ -312,7 +321,6 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             <ReactDatePicker
               showTimeSelect={props.showTimeSelect ?? false}
               selected={field.value}
-              //@ts-ignore
               onChange={(date: Date) => field.onChange(date)}
               timeInputLabel="Time:"
               dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
