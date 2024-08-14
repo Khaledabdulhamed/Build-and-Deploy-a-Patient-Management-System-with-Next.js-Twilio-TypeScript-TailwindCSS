@@ -73,7 +73,7 @@ export const getPatient = async (userId: string) => {
 
         return parseStringify(patients.documents[0])
     } catch (error) {
-        console.log(error)
+        console.log( "An error occurred while retrieving the patient details:",error)
     }
 }
 
