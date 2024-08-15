@@ -53,13 +53,13 @@ const Admin = async() => {
       />
       <StatCard
       type="pending"
-      count={appointments.pendingCount}
+      count={appointments?.pendingCount}
       label="Pending appointments"
       icon="/assets/icons/pending.svg"
       />
       <StatCard
       type="cancelled"
-      count={appointments.cancelledCount}
+      count={appointments?.cancelledCount}
       label="Cancelled appointments"
       icon="/assets/icons/cancelled.svg"
       />
